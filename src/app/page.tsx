@@ -4,7 +4,11 @@ import { useSortingAlgorithmContext } from "@/context/Visualizer";
 import { useEffect } from "react";
 import { Slider } from "./components/Input/Slider";
 import { Select } from "./components/Input/Select";
-import { algorithmOptions } from "@/lib/util";
+import {
+  algorithmOptions,
+  generateAnimationArray,
+  SortingAlgorithmData,
+} from "@/lib/util";
 import { SortingAlgorithmType } from "@/lib/types";
 import { RxReset } from "react-icons/rx";
 import { FaPlayCircle } from "react-icons/fa";
@@ -18,6 +22,8 @@ export default function Home() {
     selectedAlgorithm,
     setSelectedAlgorithm,
     requiresReset,
+    resetArrayAndAnimation,
+    runAnimation,
   } = useSortingAlgorithmContext();
 
   // useEffect(() => {
@@ -28,10 +34,19 @@ export default function Home() {
     setSelectedAlgorithm(e.target.value as SortingAlgorithmType);
   };
 
-  useEffect(() => {
-    console.log(selectedAlgorithm);
-  }, [selectedAlgorithm]);
+  const handlePlay = () => {
+    if (requiresReset) {
+      resetArrayAndAnimation();
+      return;
+    }
 
+    generateAnimationArray(
+      selectedAlgorithm,
+      isSorting,
+      arrayToSort,
+      runAnimation
+    );
+  };
   return (
     <main className="absolute top-0 h-screen w-screen z-[-2] bg-[#000000] bg-[radial-gradient(#ffffff33_1px,#150229_1px)] bg-[size:40px_40px]">
       <div className="flex h-full justify-center">
@@ -55,13 +70,54 @@ export default function Home() {
                 onChange={handleSelectChange}
                 isDisabled={isSorting}
               />
-              <button className="flex items-center justify-center" onClick={()=>{}}>
+              <button
+                className="flex items-center justify-center"
+                onClick={() => {
+                  handlePlay();
+                }}
+              >
                 {requiresReset ? (
-                  <RxReset className="text-gray-400 h-8 w-8"/>
+                  <RxReset className="text-gray-400 h-8 w-8" />
                 ) : (
-                  <FaPlayCircle className="text-system-green60 h-8 w-8"/>
+                  <FaPlayCircle className="text-system-green60 h-8 w-8" />
                 )}
               </button>
+            </div>
+
+            <div className="hidden sm:flex absolute top-[120%] left-0 w-full">
+              <div className="flex w-full text-gray-400 p-4 rounded border border-system-purple20 bg-system-purple80 bg-opacity-10 gap-6 ">
+                <div className="flex flex-col items-start justify-start w-3/4">
+                  <h3 className="text-lg">
+                    {SortingAlgorithmData[selectedAlgorithm].title}
+                  </h3>
+                  <p className="text-sm text-grey-500 pt-2">
+                    {SortingAlgorithmData[selectedAlgorithm].description}
+                  </p>
+                </div>
+                <div className="flex flex-col items-start justify-start w-1/4 gap-2">
+                  <h3 className="text-lg">Time Complexity</h3>
+                  <div className="flex flex-col gap-2">
+                    <p className="flex w-full text-sm text-gray-500">
+                      <span className="w-28">Worse Case:</span>
+                      <span>
+                      {SortingAlgorithmData[selectedAlgorithm].worstCase}
+                      </span>
+                    </p>
+                    <p className="flex w-full text-sm text-gray-500">
+                      <span className="w-28">Average Case:</span>
+                      <span>
+                      {SortingAlgorithmData[selectedAlgorithm].averageCase}
+                      </span>
+                    </p>
+                    <p className="flex w-full text-sm text-gray-500">
+                      <span className="w-28">Best Case:</span>
+                      <span>
+                      {SortingAlgorithmData[selectedAlgorithm].bestCase}
+                      </span>
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
           <div className="relative h-[calc(100vh-66px)] w-full">

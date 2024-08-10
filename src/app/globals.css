@@ -33,10 +33,24 @@ body {
   }
 }
 
-.defaul-line-color{
+.default-line-color {
   background-color: theme("colors.system.purple50");
 }
 
-.change-line-color{
+.change-line-color {
   background-color: theme("colors.system.green60");
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.pulse-animation {
+  animation: pulse 1s cubic-bezier(0.4, 0.6, 1) infinite;
 }
