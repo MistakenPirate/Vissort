@@ -1,8 +1,9 @@
 import { generateBubbleSortAnimationArray } from "@/algorithms/bubbleSort";
 import { AnimationArrayType, SortingAlgorithmType } from "./types";
 import { MdDescription } from "react-icons/md";
+import { generateQuickSortAnimationArray } from "@/algorithms/quickSort";
 
-export const MIN_ANIMATION_SPEED = 100;
+export const MIN_ANIMATION_SPEED = 10;
 export const MAX_ANIMATION_SPEED = 400;
 
 export function generateRandomNumberFromInterval(min: number, max: number) {
@@ -26,6 +27,9 @@ export const generateAnimationArray = (
   switch (selectedAlgorithm) {
     case "bubble":
       generateBubbleSortAnimationArray(isSorting, array, runAnimation);
+      break;
+    case "quick":
+      generateQuickSortAnimationArray(isSorting, array, runAnimation);
       break;
     default:
       break;
