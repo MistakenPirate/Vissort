@@ -2,6 +2,7 @@ import { generateBubbleSortAnimationArray } from "@/algorithms/bubbleSort";
 import { AnimationArrayType, SortingAlgorithmType } from "./types";
 import { MdDescription } from "react-icons/md";
 import { generateQuickSortAnimationArray } from "@/algorithms/quickSort";
+import { generateSelectionSortAnimationArray } from "@/algorithms/selectionSort";
 
 export const MIN_ANIMATION_SPEED = 10;
 export const MAX_ANIMATION_SPEED = 400;
@@ -30,6 +31,9 @@ export const generateAnimationArray = (
       break;
     case "quick":
       generateQuickSortAnimationArray(isSorting, array, runAnimation);
+      break;
+    case "selection":
+      generateSelectionSortAnimationArray(isSorting, array, runAnimation);
       break;
     default:
       break;

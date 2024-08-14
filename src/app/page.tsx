@@ -56,7 +56,7 @@ export default function Home() {
         >
           <div className="h-[66px] relative flex items-center justify-between w-full">
             <h1 className="text-gray-300 text-2xl font-light hidden md:flex">
-              Sorting Visualizer
+              Vissort : Sorting Visualized
             </h1>
             <div className="flex items-center justify-center gap-4">
               <Slider
